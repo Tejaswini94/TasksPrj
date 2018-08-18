@@ -1,6 +1,7 @@
 package com.example.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,34 +11,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Entity
+@Table(name="tasks")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name="templates")
-public class Template {
+@NoArgsConstructor
+public class Tasks {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int templateId;
-	private String subject;
-	private int duration;
-	@OneToOne(fetch=FetchType.EAGER)
-	private TUsers admin;
-	private int templateType;
-	private String status;
-	private int frequency;
-	private int priority;
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="templateTasks", joinColumns=@JoinColumn(name="templateId"), inverseJoinColumns=@JoinColumn(name="taskid"))
-	private List<Tasks> taskList=new ArrayList<>();
+	private int taskid;
+	private int taskType;
+	private String description;
+	private Date stdate, enddate; 
+	int percentComplete;
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="taskUsers", joinColumns=@JoinColumn(name="taskId"), inverseJoinColumns=@JoinColumn(name="userId"))
+	private List<TUsers> taskUsers=new ArrayList<>();
 }
