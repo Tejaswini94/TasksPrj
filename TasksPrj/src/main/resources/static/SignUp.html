@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -61,7 +61,7 @@
     </div><!-- leftpanelinner -->
   </div><!-- leftpanel -->
   
-  <div class="mainpanel">
+  <div class="mainpanel" ng-controller="tasksController">
     
     <div class="headerbar">
       
@@ -99,39 +99,40 @@
       
       <div class="panel panel-default"> <!-- panel-body --><div class="col-md-6">
                 
-                <form method="get" action="index.html">
+                <form method="get">
                   <div class="mb10">
                         <label class="control-label">Full Name</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" ng-model="fullName" class="form-control" />
                     </div>
                     
                     <div class="mb10">
                         <label class="control-label">User-Id</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" ng-model="userId" class="form-control" />
                     </div>
 					
 					<div class="mb10">
                         <label class="control-label">Email-Id</label>
-                        <input type="email" class="form-control" />
+                        <input type="email" ng-model="emailId" class="form-control" />
                     </div>
 					
 					<div class="mb10">
                         <label class="control-label">Password</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" ng-model="password" class="form-control" />
                     </div>
 					
 					<div class="mb10">
                         <label class="control-label">Role</label>
-                        <select class="select2-2" data-placeholder="Choose your role">
-                          <option value="Business - Admin">Task Admin</option>
-						  <option value="General User">General User</option>
+                        <select class="select2-2" ng-model="role" data-placeholder="Choose your role">
+                          <option value="Admin">Task Admin</option>
+						  <option value="User">General User</option>
 						</select>
 					</div>
 					
                      <br />
                     
-                    <button class="btn btn-success btn-block">Register</button>     
+                    <button ng-click="postData()" class="btn btn-success btn-block">Register</button>     
                 </form>
+                {{PostDataResponse}}
             </div><!-- col-sm-6 -->
             
     </div><!-- row -->
@@ -143,7 +144,7 @@
             
         </div>
         
-    </div><!-- signuppanel -->
+    </div>
     </div>
 </section>
 
@@ -159,7 +160,7 @@
 <script src="js/retina.min.js"></script>
 
 <script src="js/select2.min.js"></script>
-
+<script src="js/angular.min.js"></script>
 <script src="js/custom.js"></script>
 <script>
     jQuery(document).ready(function(){
@@ -187,6 +188,42 @@
         
     });
 </script>
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('tasksController', function($scope, $http) {
+        	 $scope.postData = function () {
+              	
+       			 var data1 = {
+       				 "userId": $scope.userId,
+                   	 "fullName": $scope.fullName,
+                   	 "emailId": $scope.emailId,
+                   	 "password": $scope.password,
+                     "role": $scope.role
+                 };
+       			 alert(data1.userId);
+              		$http({
+              			method:"POST",
+              			url:"users/",
+              			data: data1,
+              			headers : {
+       	                    'Content-Type': 'application/json'
+       	                }
+              		}).then(function(response){
+              			$scope.PostDataResponse = response.data;
+              			if(response.data!="Error")
+              				if(response.data=="Admin")
+              					location.href="AdminHome.html";
+              				else
+              					location.href="UserHome.html";
+              		}, function(response){
+              			$scope.PostDataResponse="Not submitted completely";
+              			alert("Error in saving new user");
+              		});
+                };
+
+          });
+    
+     </script>
 
 </body>
 </html>

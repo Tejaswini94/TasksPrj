@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -18,7 +18,7 @@
   <![endif]-->
 </head>
 
-<body>
+<body ng-controller="templateController">
 <!-- Preloader -->
 <div id="preloader">
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
@@ -151,12 +151,12 @@
                  </tr>
               </thead>
               <tbody>
-                 <tr class="odd gradeX">
+                 <tr class="odd gradeX" ng-repeat="t in data1">
                     <td>1</td>
-                    <td>B-001</td>
-                    <td>Google AdSense</td>
-                    <td class="center"> 728x90 Home Page</td>
-                    <td class="center">1000</td>
+                    <td>{{t.subject}}</td>
+                    <td>{{t.duration}}</td>
+                    <td class="center"> {{t.recurringFrequency}}</td>
+                    <td class="center">{{t.tpriority}}</td>
                  </tr>
               </tbody>
            </table>
@@ -179,6 +179,7 @@
 </section>
 
 
+<script src="js/angular.min.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -232,6 +233,16 @@
   
   });
 </script>
-
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('templateController', function($scope, $http, $location) {
+        	  	var str=location.search.substring(location.search.indexOf("=")+1);
+       			$http.get("templates/"+str).then(function(response){
+       				$scope.data1=response.data;
+       				alert(data1[0].subject);
+       			});
+          });
+    
+     </script>
 </body>
 </html>

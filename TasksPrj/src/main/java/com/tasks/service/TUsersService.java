@@ -8,5 +8,5 @@ import com.tasks.service.generic.GenericService;
 
 @Service
 public interface TUsersService  extends GenericService<TUsers>{
-
+	public TUsers find(String userId);
 }

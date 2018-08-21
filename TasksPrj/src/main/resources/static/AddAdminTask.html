@@ -24,13 +24,11 @@
   <div class="leftpanel">
     
     <div class="logopanel">
-        <!--<h1><span>[</span> bracket <span>]</span></h1>-->
 		<img src="images/logo.svg" alt="Walmart Labs Logo" height="100%" width="100%">
     </div><!-- logopanel -->
         
     <div class="leftpanelinner">    
         
-        <!-- This is only visible to small devices -->
         <div class="visible-xs hidden-sm hidden-md hidden-lg">   
             <h5 class="sidebartitle actitle">Account</h5>
             <ul class="nav nav-pills nav-stacked nav-bracket mb30">
@@ -125,33 +123,33 @@
                 <form method="get" action="index.html">
 					<div class="mb10">
                         <label class="control-label">Template-Id</label>
-                        <select class="select2-2" data-placeholder="Choose Template Id">
+                        <select class="select2-2" ng-model="templateid" ng-options="t1.templateId as t1.templateid for t1 in data1" data-placeholder="Choose Template Id">
                           <option value=""></option>
                         </select>
 					</div>
                   <div class="mb10">
                         <label class="control-label">Task-Detail</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" ng-model="description" class="form-control" />
                     </div>
                     
                     <div class="mb10">
                         <label class="control-label">Start-Date</label>
-                        <input type="date" class="form-control" />
+                        <input type="date" ng-model="stdate" class="form-control" />
                     </div>
 					
                     <div class="mb10">
                         <label class="control-label">End-Date</label>
-                        <input type="date" class="form-control" />
+                        <input type="date" ng-model="enddate" class="form-control" />
                     </div>
 					
 					 <div class="mb10">
                         <label class="control-label">Percent Complete</label>
-                        <input type="number" class="form-control" />
+                        <input type="number" ng-model="percentcomplete" class="form-control" />
                     </div>
 					
 					<div class="mb10">
                         <label class="control-label">Status</label>
-                        <select class="select2-2" data-placeholder="Choose Task Status">
+                        <select class="select2-2" ng-model="status" data-placeholder="Choose Task Status">
                           <option value=""></option>
                           <option value="Not Started"> Low </option>
                           <option value="Just Started(<25%)">Normal</option>
@@ -162,7 +160,7 @@
 					
                     <br />
                     
-                    <button class="btn btn-success btn-block">Save Template</button>     
+                    <button class="btn btn-success btn-block" ng-click="addTemplate()">Save Template</button>     
                 </form>
             </div><!-- col-sm-6 -->
             
@@ -180,6 +178,7 @@
 </section>
 
 
+<script src="js/angular.min.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -219,6 +218,48 @@
         
     });
 </script>
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('templateController', function($scope, $http, $location) {
+        	$http.get("templates/"+str).then(function(response){
+   				$scope.data1=response.data;
+   				alert(data1[0].subject);
+   			});
+        	$scope.addTemplate = function () {
+              	var str=location.search.substring(location.search.indexOf("=")+1);
+       			 var data11 = {
+       				 "templateId":$scope.templateid,
+       				 "description": $scope.description,
+                   	 "status": $scope.status,
+                   	 "taskType":0,
+                   	"percentcomplete": $scope.percentcomplete,
+                   	"stdate": $scope.stdate,
+                    "enddate": $scope.enddate
+                 };
+              		$http({
+              			method:"POST",
+              			url:"tasks/"+str+"/",
+              			data: data11,
+              			headers : {
+       	                    'Content-Type': 'application/json'
+       	                }
+              		}).then(function(response){alert("hi");
+              			$scope.PostDataResponse = response.data;
+              			//console.log(response.data);
+              			//if(response.data!="Error")
+              				//if(response.data=="Admin")
+              			alert("Task saved successfully");
+              			location.href="AdminHome.html";
+              				//else
+              					//location.href="UserHome.html";
+              		}, function(response){
+              			$scope.PostDataResponse="Not submitted completely";
+              			alert("Error in saving new task");
+              		});
+                };
 
+          });
+    
+     </script>
 </body>
 </html>

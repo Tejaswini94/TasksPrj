@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app1">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -11,14 +11,9 @@
 
   <link href="css/style.default.css" rel="stylesheet">
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
 </head>
 
-<body>
+<body ng-controller="templateController">
 <!-- Preloader -->
 <div id="preloader">
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
@@ -135,45 +130,45 @@
       
       <div class="panel panel-default"> <!-- panel-body --><div class="col-md-6">
                 
-                <form method="get" action="index.html">
+                <form>
                   <div class="mb10">
                         <label class="control-label">Subject</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" ng-model="subject" class="form-control" />
                     </div>
                     
                     <div class="mb10">
                         <label class="control-label">Duration</label>
-                        <input type="number" class="form-control" />
+                        <input type="number" class="form-control" ng-model="duration" />
                     </div>
 					
 					<div class="mb10">
                         <label class="control-label">Recurring Frequency</label>
-                        <select class="select2-2" data-placeholder="Choose recurring frequency">
+                        <select class="select2-2" ng-model="frequency" data-placeholder="Choose recurring frequency">
                           <option value=""></option>
-                          <option value="Daily"> Daily </option>
-                          <option value="Weekly">Weekly</option>
-						  <option value="Fort-Nightly">Fort-Nightly</option>
-						  <option value="Monthly">Monthly</option>
-					   	  <option value="Quarterly">Quarterly</option>
-					      <option value="Half Yearly">Half Yearly</option>
-						  <option value="Yearly">yearly</option>
-						  <option value="Continuous">Continuous</option>
+                          <option value="1">Daily </option>
+                          <option value="2">Weekly</option>
+						  <option value="3">Fort-Nightly</option>
+						  <option value="4">Monthly</option>
+					   	  <option value="5">Quarterly</option>
+					      <option value="6">Half Yearly</option>
+						  <option value="7">yearly</option>
+						  <option value="8">Continuous</option>
 						</select>
 					</div>
 					
 					<div class="mb10">
                         <label class="control-label">Priority</label>
-                        <select class="select2-2" data-placeholder="Choose priority">
+                        <select class="select2-2" ng-model="priority" data-placeholder="Choose priority">
                           <option value=""></option>
-                          <option value="Low"> Low </option>
-                          <option value="Normal">Normal</option>
-						  <option value="High">High</option>
+                          <option value="1"> Low </option>
+                          <option value="2">Normal</option>
+						  <option value="3">High</option>
 						</select>
 					</div>
 					
                     <br />
                     
-                    <button class="btn btn-success btn-block">Save Template</button>     
+                    <button class="btn btn-success btn-block" ng-click="addTemplate()">Save Template</button>     
                 </form>
             </div><!-- col-sm-6 -->
             
@@ -191,6 +186,7 @@
 </section>
 
 
+<script src="js/angular.min.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -230,6 +226,43 @@
         
     });
 </script>
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('templateController', function($scope, $http, $location) {
+        	 $scope.addTemplate = function () {
+              	var str=location.search.substring(location.search.indexOf("=")+1);
+       			 var data1 = {
+       				 "templateId":0,
+       				 "subject": $scope.subject,
+                   	 "duration": $scope.duration,
+                   	 "templateType":1,
+                   	 "frequency": $scope.frequency,
+                     "priority": $scope.priority
+                 };
+              		$http({
+              			method:"POST",
+              			url:"templates/"+str+"/",
+              			data: data1,
+              			headers : {
+       	                    'Content-Type': 'application/json'
+       	                }
+              		}).then(function(response){
+              			$scope.PostDataResponse = response.data;
+              			//console.log(response.data);
+              			//if(response.data!="Error")
+              				//if(response.data=="Admin")
+              			alert("Template saved successfully");
+              			location.href="AdminHome.html";
+              				//else
+              					//location.href="UserHome.html";
+              		}, function(response){
+              			$scope.PostDataResponse="Not submitted completely";
+              			alert("Error in saving new template");
+              		});
+                };
 
+          });
+    
+     </script>
 </body>
 </html>

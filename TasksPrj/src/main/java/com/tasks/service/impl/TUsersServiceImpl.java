@@ -46,15 +46,15 @@ public class TUsersServiceImpl implements TUsersService {
 		return null;
 	}
 	
+	@Override
 	public TUsers find(String userId) {
-		// TODO Auto-generated method stub
-	return repository.findByUserId(userId);
+		return repository.findByUserId(userId);
 	}
 
 	@Override
 	public List<TUsers> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 }

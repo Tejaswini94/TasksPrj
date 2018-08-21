@@ -3,11 +3,12 @@ package com.tasks.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tasks.model.Tasks;
 import com.tasks.repository.TasksRepository;
 import com.tasks.service.TasksService;
-
+@Service
 public class TasksServiceImpl implements TasksService {
 	@Autowired
 	TasksRepository repository;
@@ -46,8 +47,14 @@ public class TasksServiceImpl implements TasksService {
 	}
 
 	@Override
+	public List<Tasks> findAll(String userId) {
+		return repository.findAllByUserId(userId);
+	}
+
+	@Override
 	public List<Tasks> findAll() {
-		return repository.findAll();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
