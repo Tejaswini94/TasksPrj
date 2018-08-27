@@ -16,16 +16,17 @@ Prerequisites
 The following librarys are needed to run this application
 
 1. Java 8
-2. Tomcat 8.0 or higher
-3. Spring 3.2 or higher
-4. Hibernate 4
-5. Mysql 5.5
-6. OS independent
+2. Spring 3.2 or higher
+3. Hibernate 4
+4. Mysql 5.5
+5. OS independent
+
 Installing
 1. Download either zip folder or through Github desktop
 2. Open project in any IDE such as Eclipse, IntelliJ etc.
 3. Need Mysql 5.5 or higher version setup in your computer
-4. Deploye project in Tomcat.
+4. Run the project as Spring Boot Application.
+
 Design
 Followed MVC architecture for loose coupling and to ease to add/remove any other componenet based on requirement. Following are the pacakges I have used for this application.
 
