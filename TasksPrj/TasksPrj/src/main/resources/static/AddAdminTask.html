@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+  <title> Add New Task</title>
+
+  <link href="css/style.default.css" rel="stylesheet">
+
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+  
+  <div class="leftpanel">
+    
+    <div class="logopanel">
+		<img src="images/logo.svg" alt="Walmart Labs Logo" height="100%" width="100%">
+    </div><!-- logopanel -->
+        
+    <div class="leftpanelinner">    
+        
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">   
+            <h5 class="sidebartitle actitle">Account</h5>
+            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+              <li><a href=""><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
+              <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+            </ul>
+        </div>
+      
+      <h5 class="sidebartitle">Navigation</h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li>
+			<a href="AdminHome.html">
+			<i class="fa fa-home"></i>
+			<span>Home</span></a>
+		  </li>
+        <li class="nav-parent">
+			<a href="AdminHome.html">
+			<i class="fa fa-home"></i>
+			<span>Task Templates</span></a>
+		  <ul class="children">
+            <li><a href="AddTemplate.html"><i class="fa fa-caret-right"></i> Add new Template</a></li>
+            <li><a href="TemplateDetails.html"><i class="fa fa-caret-right"></i> Template Details</a></li>
+          </ul>
+		  </li>
+		<li class="nav-parent">
+			<a href="AdminHome.html">
+			<i class="fa fa-home"></i>
+			<span>Tasks</span></a>
+		  <ul class="children">
+            <li class="active"><a href="AddTask.html"><i class="fa fa-caret-right"></i> Add New Task</a></li>
+            <li><a href="TaskDetails.html"><i class="fa fa-caret-right"></i> Task Details</a></li>
+			<li><a href="TaskCompletedDetails.html"><i class="fa fa-caret-right"></i> Completed Tasks Details</a></li>
+		  </ul>
+		  </li>
+		<li>
+			<a href="AllCollaborators.html">
+			<i class="fa fa-home"></i>
+			<span>All Collaborators</span></a>
+		  </li>
+		<li>
+			<a href="Logout.html">
+			<i class="fa fa-home"></i>
+			<span>Logout</span></a>
+		  </li>
+	
+	</ul>
+<!-- infosummary -->
+      
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+  
+  <div class="mainpanel">
+    
+    <div class="headerbar">
+      
+      <a class="menutoggle"><i class="fa fa-bars"></i></a>
+      
+      <div class="header-right">
+        <ul class="headermenu">
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img src="images/favicon.png"alt="Walmart Labs Favicon" />
+                Admin
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                <li><a href="signin.html"><i class="glyphicon glyphicon-log-out"></i> Log Out</a></li>
+              </ul>
+            </div>
+          </li>
+          
+        </ul>
+      </div><!-- header-right -->
+      
+    </div><!-- headerbar -->
+    
+    <div class="pageheader">
+      <h2><em class="fa fa-table"></em> Add New Task</h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+          <li class="active">New Task</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="contentpanel"> <!-- row -->
+      
+      <div class="panel panel-default"> <!-- panel-body --><div class="col-md-6">
+                
+                <form method="get" action="index.html">
+					<div class="mb10">
+                        <label class="control-label">Template-Id</label>
+                        <select class="select2-2" ng-model="templateid" ng-options="t1.templateId as t1.templateid for t1 in data1" data-placeholder="Choose Template Id">
+                          <option value=""></option>
+                        </select>
+					</div>
+                  <div class="mb10">
+                        <label class="control-label">Task-Detail</label>
+                        <input type="text" ng-model="description" class="form-control" />
+                    </div>
+                    
+                    <div class="mb10">
+                        <label class="control-label">Start-Date</label>
+                        <input type="date" ng-model="stdate" class="form-control" />
+                    </div>
+					
+                    <div class="mb10">
+                        <label class="control-label">End-Date</label>
+                        <input type="date" ng-model="enddate" class="form-control" />
+                    </div>
+					
+					 <div class="mb10">
+                        <label class="control-label">Percent Complete</label>
+                        <input type="number" ng-model="percentcomplete" class="form-control" />
+                    </div>
+					
+					<div class="mb10">
+                        <label class="control-label">Status</label>
+                        <select class="select2-2" ng-model="status" data-placeholder="Choose Task Status">
+                          <option value=""></option>
+                          <option value="Not Started"> Low </option>
+                          <option value="Just Started(<25%)">Normal</option>
+						  <option value="About Complete(>75%)">High</option>
+						  <option value="Complete">Complete</option>
+						</select>
+					</div>
+					
+                    <br />
+                    
+                    <button class="btn btn-success btn-block" ng-click="addTemplate()">Save Template</button>     
+                </form>
+            </div><!-- col-sm-6 -->
+            
+    </div><!-- row -->
+        
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2014 | All Rights Reserved | Walmart Labs
+            </div>
+            
+        </div>
+        
+    </div><!-- signuppanel -->
+    </div>
+</section>
+
+
+<script src="js/angular.min.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+
+<script src="js/select2.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        
+        jQuery(".select2").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+        
+        jQuery(".select2-2").select2({
+            width: '100%'
+        });
+        
+        
+        // Please do not use the code below
+        // This is for demo purposes only
+        var c = jQuery.cookie('change-skin');
+        if (c && c == 'greyjoy') {
+            jQuery('.btn-success').addClass('btn-orange').removeClass('btn-success');
+        } else if(c && c == 'dodgerblue') {
+            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
+        } else if (c && c == 'katniss') {
+            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
+        }
+        
+    });
+</script>
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('templateController', function($scope, $http, $location) {
+        	$http.get("templates/"+str).then(function(response){
+   				$scope.data1=response.data;
+   				alert(data1[0].subject);
+   			});
+        	$scope.addTemplate = function () {
+              	var str=location.search.substring(location.search.indexOf("=")+1);
+       			 var data11 = {
+       				 "templateId":$scope.templateid,
+       				 "description": $scope.description,
+                   	 "status": $scope.status,
+                   	 "taskType":0,
+                   	"percentcomplete": $scope.percentcomplete,
+                   	"stdate": $scope.stdate,
+                    "enddate": $scope.enddate
+                 };
+              		$http({
+              			method:"POST",
+              			url:"tasks/"+str+"/",
+              			data: data11,
+              			headers : {
+       	                    'Content-Type': 'application/json'
+       	                }
+              		}).then(function(response){alert("hi");
+              			$scope.PostDataResponse = response.data;
+              			//console.log(response.data);
+              			//if(response.data!="Error")
+              				//if(response.data=="Admin")
+              			alert("Task saved successfully");
+              			location.href="AdminHome.html";
+              				//else
+              					//location.href="UserHome.html";
+              		}, function(response){
+              			$scope.PostDataResponse="Not submitted completely";
+              			alert("Error in saving new task");
+              		});
+                };
+
+          });
+    
+     </script>
+</body>
+</html>

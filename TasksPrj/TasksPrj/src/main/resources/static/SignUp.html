@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+  <title> New User</title>
+
+  <link href="css/style.default.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+  
+  <div class="leftpanel">
+    
+    <div class="logopanel">
+        <!--<h1><span>[</span> bracket <span>]</span></h1>-->
+		<img src="images/logo.svg" alt="Walmart Labs Logo" height="100%" width="100%">
+    </div><!-- logopanel -->
+        
+    <div class="leftpanelinner">    
+        
+        <!-- This is only visible to small devices -->
+        <div class="visible-xs hidden-sm hidden-md hidden-lg">   
+            <div class="media userlogged">
+                <img alt="" src="images/photos/loggeduser.png" class="media-object">
+                <div class="media-body">
+                    <h4>John Doe</h4>
+                    <span>"Life is so..."</span>
+                </div>
+            </div>
+        </div>
+      
+      <h5 class="sidebartitle">Navigation</h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li class="active">
+			<a href="home.html">
+			<i class="fa fa-home"></i>
+			<span>Dashboard</span></a>
+		  </li>
+        
+		
+	</ul>
+<!-- infosummary -->
+      
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+  
+  <div class="mainpanel" ng-controller="tasksController">
+    
+    <div class="headerbar">
+      
+      <a class="menutoggle"><i class="fa fa-bars"></i></a>
+      
+      <div class="header-right">
+        <ul class="headermenu">
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img src="images/favicon.png"alt="Walmart Labs Favicon" />
+                Admin
+                <span class="caret"></span>
+              </button>
+              
+            </div>
+          </li>
+          
+        </ul>
+      </div><!-- header-right -->
+      
+    </div><!-- headerbar -->
+    
+    <div class="pageheader">
+      <h2><em class="fa fa-table"></em> Register User</h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+          <li class="active">Sign-Up</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="contentpanel"> <!-- row -->
+      
+      <div class="panel panel-default"> <!-- panel-body --><div class="col-md-6">
+                
+                <form method="get">
+                  <div class="mb10">
+                        <label class="control-label">Full Name</label>
+                        <input type="text" ng-model="fullName" class="form-control" />
+                    </div>
+                    
+                    <div class="mb10">
+                        <label class="control-label">User-Id</label>
+                        <input type="text" ng-model="userId" class="form-control" />
+                    </div>
+					
+					<div class="mb10">
+                        <label class="control-label">Email-Id</label>
+                        <input type="email" ng-model="emailId" class="form-control" />
+                    </div>
+					
+					<div class="mb10">
+                        <label class="control-label">Password</label>
+                        <input type="text" ng-model="password" class="form-control" />
+                    </div>
+					
+					<div class="mb10">
+                        <label class="control-label">Role</label>
+                        <select class="select2-2" ng-model="role" data-placeholder="Choose your role">
+                          <option value="Admin">Task Admin</option>
+						  <option value="User">General User</option>
+						</select>
+					</div>
+					
+                     <br />
+                    
+                    <button ng-click="postData()" class="btn btn-success btn-block">Register</button>     
+                </form>
+                {{PostDataResponse}}
+            </div><!-- col-sm-6 -->
+            
+    </div><!-- row -->
+        
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2014 | All Rights Reserved | Walmart Labs
+            </div>
+            
+        </div>
+        
+    </div>
+    </div>
+</section>
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+
+<script src="js/select2.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/custom.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        
+        jQuery(".select2").select2({
+            width: '100%',
+            minimumResultsForSearch: -1
+        });
+        
+        jQuery(".select2-2").select2({
+            width: '100%'
+        });
+        
+        
+        // Please do not use the code below
+        // This is for demo purposes only
+        var c = jQuery.cookie('change-skin');
+        if (c && c == 'greyjoy') {
+            jQuery('.btn-success').addClass('btn-orange').removeClass('btn-success');
+        } else if(c && c == 'dodgerblue') {
+            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
+        } else if (c && c == 'katniss') {
+            jQuery('.btn-success').addClass('btn-primary').removeClass('btn-success');
+        }
+        
+    });
+</script>
+<script>
+        var app1 = angular.module('app1', []);
+        app1.controller('tasksController', function($scope, $http) {
+        	 $scope.postData = function () {
+              	
+       			 var data1 = {
+       				 "userId": $scope.userId,
+                   	 "fullName": $scope.fullName,
+                   	 "emailId": $scope.emailId,
+                   	 "password": $scope.password,
+                     "role": $scope.role
+                 };
+       			 alert(data1.userId);
+              		$http({
+              			method:"POST",
+              			url:"users/",
+              			data: data1,
+              			headers : {
+       	                    'Content-Type': 'application/json'
+       	                }
+              		}).then(function(response){
+              			$scope.PostDataResponse = response.data;
+              			if(response.data!="Error")
+              				if(response.data=="Admin")
+              					location.href="AdminHome.html";
+              				else
+              					location.href="UserHome.html";
+              		}, function(response){
+              			$scope.PostDataResponse="Not submitted completely";
+              			alert("Error in saving new user");
+              		});
+                };
+
+          });
+    
+     </script>
+
+</body>
+</html>
